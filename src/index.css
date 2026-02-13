@@ -1,0 +1,288 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   FOR CHAMS - Custom Styles
+   ============================================ */
+
+/* --- Base Styles --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Dark mode body */
+.dark body {
+  background-color: #0a0015;
+  color: #fff5f7;
+}
+
+/* Light mode body */
+body {
+  background-color: #fff5f7;
+  color: #1a0a2e;
+}
+
+/* --- Custom Scrollbar --- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #ff6b9d, #8B5CF6);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #ff477e, #7c3aed);
+}
+
+/* --- Gradient Text --- */
+.gradient-text {
+  background: linear-gradient(135deg, #ff6b9d, #EC4899, #8B5CF6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-gold {
+  background: linear-gradient(135deg, #F59E0B, #ff6b9d, #EC4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* --- Glass Morphism --- */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px rgba(236, 72, 153, 0.1);
+}
+
+/* --- Typewriter Cursor --- */
+.typewriter-cursor::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  color: #ff6b9d;
+  font-weight: 300;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* --- Glow Effects --- */
+.glow-pink {
+  box-shadow: 0 0 20px rgba(255, 107, 157, 0.3),
+              0 0 40px rgba(236, 72, 153, 0.15);
+}
+
+.glow-pink:hover {
+  box-shadow: 0 0 30px rgba(255, 107, 157, 0.5),
+              0 0 60px rgba(236, 72, 153, 0.25);
+}
+
+.glow-purple {
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3),
+              0 0 40px rgba(139, 92, 246, 0.15);
+}
+
+/* --- Flip Card --- */
+.flip-card {
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.flip-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* --- Animated Background Gradient --- */
+.bg-animated-gradient {
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* --- Shimmer Effect --- */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 107, 157, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* --- Timeline Line --- */
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to bottom, #ff6b9d, #8B5CF6, #ff6b9d);
+  opacity: 0.3;
+}
+
+@media (max-width: 768px) {
+  .timeline-line {
+    left: 20px;
+    transform: none;
+  }
+}
+
+/* --- Music Visualizer Bars --- */
+.music-bar {
+  display: inline-block;
+  width: 3px;
+  margin: 0 1px;
+  background: linear-gradient(to top, #ff6b9d, #8B5CF6);
+  border-radius: 2px;
+  animation: music-wave 1s ease-in-out infinite;
+}
+
+.music-bar:nth-child(1) { animation-delay: 0s; height: 10px; }
+.music-bar:nth-child(2) { animation-delay: 0.1s; height: 15px; }
+.music-bar:nth-child(3) { animation-delay: 0.2s; height: 8px; }
+.music-bar:nth-child(4) { animation-delay: 0.3s; height: 18px; }
+.music-bar:nth-child(5) { animation-delay: 0.4s; height: 12px; }
+
+@keyframes music-wave {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(2); }
+}
+
+.music-bar.paused {
+  animation-play-state: paused;
+  transform: scaleY(0.5);
+}
+
+/* --- Selection Color --- */
+::selection {
+  background: rgba(255, 107, 157, 0.3);
+  color: inherit;
+}
+
+/* --- Section Transitions --- */
+section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* --- Romantic Divider --- */
+.romantic-divider {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ff6b9d, #8B5CF6, #ff6b9d, transparent);
+  margin: 0 auto;
+}
+
+/* --- Button Styles --- */
+.btn-romantic {
+  background: linear-gradient(135deg, #ff6b9d, #EC4899, #8B5CF6);
+  color: white;
+  padding: 12px 32px;
+  border-radius: 50px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-romantic::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #8B5CF6, #EC4899, #ff6b9d);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-romantic:hover::before {
+  opacity: 1;
+}
+
+.btn-romantic:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+}
+
+.btn-romantic span {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Easter Egg Sparkle --- */
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1) rotate(180deg); }
+}
+
+.sparkle {
+  animation: sparkle 0.6s ease-in-out;
+}
