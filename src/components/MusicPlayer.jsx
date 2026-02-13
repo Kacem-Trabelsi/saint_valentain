@@ -6,7 +6,6 @@ import { FaVolumeMute, FaStepForward, FaStepBackward } from 'react-icons/fa';
 const PLAYLIST = [
   { src: '/music/song.mp3', title: 'Song' },
   { src: '/music/PARANOIA_PSYCOLOVE02 ( audio officiel).mp3', title: 'Paranoia Psycolove' },
-  { src: '/music/Mr SKiLLS  - قراري    Karari  (Officiel Clip).mp3', title: 'Mr SKiLLS - Karari' },
 ];
 
 const MusicPlayer = () => {
