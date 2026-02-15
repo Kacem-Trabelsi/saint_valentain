@@ -286,3 +286,256 @@ section {
 .sparkle {
   animation: sparkle 0.6s ease-in-out;
 }
+
+/* ============================================
+   LOVE ANIMATIONS - Extra magic ✨
+   ============================================ */
+
+/* --- Animated Gradient Background --- */
+.bg-gradient-romantic,
+.bg-gradient-romantic-light {
+  background-size: 400% 400%;
+  animation: gradient-shift 20s ease infinite;
+}
+
+/* --- Love Pulse Ring --- */
+.love-pulse {
+  position: relative;
+}
+
+.love-pulse::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #ff6b9d, #8B5CF6, #EC4899, #ff6b9d);
+  background-size: 300% 300%;
+  animation: gradient-spin 4s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.love-pulse:hover::before {
+  opacity: 0.6;
+}
+
+@keyframes gradient-spin {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* --- Sparkle Trail on Cursor (applied to sections) --- */
+@keyframes sparkle-float {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-80px) scale(0); opacity: 0; }
+}
+
+/* --- Section Entrance Animations --- */
+@keyframes slide-up-fade {
+  0% { opacity: 0; transform: translateY(60px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-left {
+  0% { opacity: 0; transform: translateX(-80px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-in-right {
+  0% { opacity: 0; transform: translateX(80px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* --- Heartbeat Glow --- */
+@keyframes heartbeat-glow {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(255, 107, 157, 0.3);
+    transform: scale(1);
+  }
+  25% {
+    text-shadow: 0 0 30px rgba(255, 107, 157, 0.6), 0 0 60px rgba(236, 72, 153, 0.3);
+    transform: scale(1.05);
+  }
+  50% {
+    text-shadow: 0 0 10px rgba(255, 107, 157, 0.3);
+    transform: scale(1);
+  }
+  75% {
+    text-shadow: 0 0 20px rgba(255, 107, 157, 0.5), 0 0 40px rgba(236, 72, 153, 0.2);
+    transform: scale(1.02);
+  }
+}
+
+.animate-heartbeat-glow {
+  animation: heartbeat-glow 2s ease-in-out infinite;
+}
+
+/* --- Romantic Wave Separator --- */
+.wave-separator {
+  position: relative;
+  height: 80px;
+  overflow: hidden;
+}
+
+.wave-separator::before,
+.wave-separator::after {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  top: 0;
+  left: -50%;
+  background: radial-gradient(ellipse at center, rgba(255, 107, 157, 0.08) 0%, transparent 70%);
+}
+
+.wave-separator::before {
+  animation: wave-move 8s ease-in-out infinite;
+}
+
+.wave-separator::after {
+  animation: wave-move 8s ease-in-out infinite reverse;
+  animation-delay: -4s;
+}
+
+@keyframes wave-move {
+  0%, 100% { transform: translateX(-10%) translateY(0); }
+  50% { transform: translateX(10%) translateY(-10px); }
+}
+
+/* --- Glowing Border Animation --- */
+@keyframes border-glow {
+  0%, 100% { border-color: rgba(255, 107, 157, 0.1); }
+  50% { border-color: rgba(255, 107, 157, 0.3); }
+}
+
+.animate-border-glow {
+  animation: border-glow 3s ease-in-out infinite;
+}
+
+/* --- Text Shimmer (for titles) --- */
+.text-shimmer {
+  background: linear-gradient(
+    120deg,
+    #ff6b9d 0%,
+    #EC4899 25%,
+    #f0abfc 50%,
+    #EC4899 75%,
+    #8B5CF6 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: text-shimmer-move 4s linear infinite;
+}
+
+@keyframes text-shimmer-move {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* --- Floating Ribbon Particles --- */
+@keyframes ribbon-float {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+  25% { transform: translateY(-30px) rotate(5deg); opacity: 0.8; }
+  50% { transform: translateY(-15px) rotate(-3deg); opacity: 0.6; }
+  75% { transform: translateY(-40px) rotate(4deg); opacity: 0.7; }
+  100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+}
+
+/* --- Breathing Shadow for Cards --- */
+@keyframes breathing-shadow {
+  0%, 100% {
+    box-shadow: 0 4px 20px rgba(255, 107, 157, 0.05);
+  }
+  50% {
+    box-shadow: 0 8px 40px rgba(255, 107, 157, 0.15),
+                0 0 60px rgba(139, 92, 246, 0.08);
+  }
+}
+
+.glass:hover,
+.glass-light:hover {
+  animation: breathing-shadow 2s ease-in-out infinite;
+}
+
+/* --- Stardust Particles (for background) --- */
+@keyframes stardust {
+  0% { opacity: 0; transform: scale(0) translateY(0); }
+  10% { opacity: 1; transform: scale(1); }
+  90% { opacity: 1; transform: scale(1) translateY(-100vh); }
+  100% { opacity: 0; transform: scale(0) translateY(-100vh); }
+}
+
+/* --- Love Line Drawing Animation --- */
+@keyframes draw-heart {
+  0% { stroke-dashoffset: 1000; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* --- Romantic Divider Enhanced --- */
+.romantic-divider {
+  position: relative;
+  overflow: visible;
+}
+
+.romantic-divider::before {
+  content: '♥';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 8px;
+  color: #ff6b9d;
+  opacity: 0.5;
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+/* --- Section Glow Accent Lines --- */
+section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,107,157,0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+section:hover::before {
+  opacity: 1;
+}
+
+/* --- Enhanced Button Hover Sparkle --- */
+.btn-romantic::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, #ff6b9d, #8B5CF6, #EC4899, #ff6b9d);
+  background-size: 400% 400%;
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  animation: gradient-spin 3s linear infinite;
+  transition: opacity 0.3s ease;
+}
+
+.btn-romantic:hover::after {
+  opacity: 0.7;
+  filter: blur(8px);
+}
+
+/* --- Smooth Scroll Snap (subtle) --- */
+@media (min-height: 700px) {
+  section {
+    scroll-margin-top: 20px;
+  }
+}

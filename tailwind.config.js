@@ -32,10 +32,20 @@ export default {
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
+        'float-slow': 'float 10s ease-in-out infinite',
+        'float-fast': 'float 4s ease-in-out infinite',
         'glow': 'glow 2s ease-in-out infinite',
+        'glow-slow': 'glow 4s ease-in-out infinite',
         'heartbeat': 'heartbeat 1.5s ease-in-out infinite',
         'shimmer': 'shimmer 2s linear infinite',
         'bounce-slow': 'bounce 3s ease-in-out infinite',
+        'spin-slow': 'spin 15s linear infinite',
+        'spin-reverse': 'spin-reverse 20s linear infinite',
+        'pulse-love': 'pulse-love 3s ease-in-out infinite',
+        'twinkle': 'twinkle 3s ease-in-out infinite',
+        'sway': 'sway 6s ease-in-out infinite',
+        'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
+        'love-wave': 'love-wave 8s ease-in-out infinite',
       },
       keyframes: {
         float: {
@@ -55,6 +65,31 @@ export default {
         shimmer: {
           '0%': { backgroundPosition: '-200% 0' },
           '100%': { backgroundPosition: '200% 0' },
+        },
+        'spin-reverse': {
+          '0%': { transform: 'rotate(360deg)' },
+          '100%': { transform: 'rotate(0deg)' },
+        },
+        'pulse-love': {
+          '0%, 100%': { transform: 'scale(1)', opacity: '0.6' },
+          '50%': { transform: 'scale(1.15)', opacity: '1' },
+        },
+        twinkle: {
+          '0%, 100%': { opacity: '0.3', transform: 'scale(0.8)' },
+          '50%': { opacity: '1', transform: 'scale(1.2)' },
+        },
+        sway: {
+          '0%, 100%': { transform: 'rotate(-3deg)' },
+          '50%': { transform: 'rotate(3deg)' },
+        },
+        'fade-in-up': {
+          '0%': { opacity: '0', transform: 'translateY(30px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'love-wave': {
+          '0%': { transform: 'translateX(-100%) scaleY(1)' },
+          '50%': { transform: 'translateX(0%) scaleY(1.5)' },
+          '100%': { transform: 'translateX(100%) scaleY(1)' },
         },
       },
       backgroundImage: {
