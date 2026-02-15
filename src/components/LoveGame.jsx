@@ -153,7 +153,7 @@ const LoveGame = () => {
   };
 
   return (
-    <div className="min-h-screen py-20 px-4 flex flex-col items-center justify-center">
+    <div className="min-h-screen py-10 px-4 flex flex-col items-center justify-center">
       {/* Section header */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}

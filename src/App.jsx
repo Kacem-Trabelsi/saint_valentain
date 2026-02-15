@@ -12,6 +12,7 @@ import DreamBoard from './components/DreamBoard';
 import LoveStars from './components/LoveStars';
 import WishJar from './components/WishJar';
 import LoveCountdown from './components/LoveCountdown';
+import OurStory from './components/OurStory';
 import ComplimentGenerator from './components/ComplimentGenerator';
 import LoveGame from './components/LoveGame';
 import SurpriseButton from './components/SurpriseButton';
@@ -33,7 +34,7 @@ export const LOVE_START_DATE = new Date(2025, 7, 3, 1, 12, 0); // 3 Août 2025, 
 const LoveDivider = ({ emoji = '💕' }) => {
   const { isDark } = useTheme();
   return (
-    <div className="relative py-8 overflow-hidden">
+    <div className="relative py-2 overflow-hidden">
       {/* Animated line */}
       <motion.div
         initial={{ scaleX: 0 }}
@@ -121,6 +122,12 @@ function App() {
             <section id="landing">
               <Landing />
             </section>
+
+            <LoveDivider emoji="📖" />
+
+            <AnimatedSection id="ourstory">
+              <OurStory />
+            </AnimatedSection>
 
             <LoveDivider emoji="💝" />
 

@@ -66,7 +66,7 @@ const FinalPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-20 relative">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-10 relative">
       {/* Background decoration */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-romantic-400/5 rounded-full blur-3xl" />

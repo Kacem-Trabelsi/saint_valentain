@@ -109,7 +109,7 @@ const DreamBoard = () => {
   };
 
   return (
-    <div className="min-h-screen py-20 px-4">
+    <div className="min-h-screen py-10 px-4">
       {/* Section header */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}

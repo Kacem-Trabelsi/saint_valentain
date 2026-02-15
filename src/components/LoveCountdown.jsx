@@ -134,7 +134,7 @@ const CountdownCard = ({ event, isDark, index }) => {
           <p className={`font-elegant text-sm italic mt-1 ${
             isDark ? 'text-romantic-200/60' : 'text-romantic-600/60'
           }`}>
-            C'est aujourd'hui !
+            C&apos;est aujourd&apos;hui !
           </p>
         </div>
       ) : (
@@ -223,7 +223,7 @@ const LoveCountdown = () => {
   ];
 
   return (
-    <div className="min-h-screen py-20 px-4">
+    <div className="min-h-screen py-10 px-4">
       {/* Section header */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}

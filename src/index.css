@@ -23,16 +23,16 @@ body {
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
+/* Light mode body (default) */
+body {
+  background-color: #fff5f7;
+  color: #2d1b42;
+}
+
 /* Dark mode body */
 .dark body {
   background-color: #0a0015;
   color: #fff5f7;
-}
-
-/* Light mode body */
-body {
-  background-color: #fff5f7;
-  color: #1a0a2e;
 }
 
 /* --- Custom Scrollbar --- */
@@ -77,11 +77,12 @@ body {
 }
 
 .glass-light {
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 8px 32px rgba(236, 72, 153, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 4px 24px rgba(236, 72, 153, 0.08),
+              0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 /* --- Typewriter Cursor --- */
@@ -494,6 +495,10 @@ section {
 }
 
 /* --- Section Glow Accent Lines --- */
+section {
+  position: relative;
+}
+
 section::before {
   content: '';
   position: absolute;
@@ -505,6 +510,7 @@ section::before {
   background: linear-gradient(90deg, transparent, rgba(255,107,157,0.2), transparent);
   opacity: 0;
   transition: opacity 0.5s ease;
+  z-index: 1;
 }
 
 section:hover::before {

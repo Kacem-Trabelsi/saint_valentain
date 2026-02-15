@@ -21,6 +21,22 @@ const wishes = [
   { text: "أتمنى أن تكوني آخر وجه أراه كل ليلة وأول وجه أراه كل صباح 🌟", color: 'from-yellow-400 to-amber-500' },
 ];
 
+const PAPER_COLORS_DARK = [
+  'rgba(255,107,157,0.35)',
+  'rgba(236,72,153,0.3)',
+  'rgba(139,92,246,0.3)',
+  'rgba(244,114,182,0.3)',
+  'rgba(167,139,250,0.3)',
+];
+
+const PAPER_COLORS_LIGHT = [
+  'rgba(255,107,157,0.5)',
+  'rgba(236,72,153,0.45)',
+  'rgba(139,92,246,0.4)',
+  'rgba(244,114,182,0.45)',
+  'rgba(167,139,250,0.4)',
+];
+
 const WishJar = () => {
   const { isDark } = useTheme();
   const [currentWish, setCurrentWish] = useState(null);
@@ -28,6 +44,8 @@ const WishJar = () => {
   const [usedWishes, setUsedWishes] = useState([]);
   const [jarShake, setJarShake] = useState(false);
   const [floatingPapers, setFloatingPapers] = useState([]);
+
+  const paperColors = isDark ? PAPER_COLORS_DARK : PAPER_COLORS_LIGHT;
 
   const pickWish = useCallback(() => {
     if (isAnimating) return;
@@ -37,14 +55,14 @@ const WishJar = () => {
     setTimeout(() => setJarShake(false), 600);
 
     // Floating paper animation
-    const papers = Array.from({ length: 5 }, (_, i) => ({
+    const papers = Array.from({ length: 6 }, (_, i) => ({
       id: Date.now() + i,
-      x: (Math.random() - 0.5) * 120,
-      y: -(Math.random() * 80 + 40),
+      x: (Math.random() - 0.5) * 140,
+      y: -(Math.random() * 100 + 40),
       rotate: Math.random() * 360,
     }));
     setFloatingPapers(papers);
-    setTimeout(() => setFloatingPapers([]), 1000);
+    setTimeout(() => setFloatingPapers([]), 1200);
 
     // Pick a random wish not yet used
     const available = wishes.filter((_, i) => !usedWishes.includes(i));
@@ -58,7 +76,7 @@ const WishJar = () => {
         return next.length >= wishes.length ? [] : next;
       });
       setIsAnimating(false);
-    }, 600);
+    }, 700);
   }, [isAnimating, usedWishes]);
 
   const resetJar = () => {
@@ -66,15 +84,17 @@ const WishJar = () => {
     setUsedWishes([]);
   };
 
+  const remaining = wishes.length - usedWishes.length;
+
   return (
-    <div className="min-h-screen py-20 px-4 flex flex-col items-center justify-center">
+    <div className="min-h-screen py-10 px-4 flex flex-col items-center justify-center">
       {/* Section header */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.8 }}
-        className="text-center mb-12"
+        className="text-center mb-14"
       >
         <h2 className="font-romantic text-5xl sm:text-6xl md:text-7xl gradient-text mb-4">
           Wish Jar
@@ -101,159 +121,221 @@ const WishJar = () => {
                 x: paper.x,
                 y: paper.y,
                 rotate: paper.rotate,
-                scale: 1.2,
+                scale: 1.1,
               }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
-              className="absolute left-1/2 top-1/2 text-2xl pointer-events-none z-20"
+              transition={{ duration: 1, ease: 'easeOut' }}
+              className="absolute left-1/2 top-1/3 pointer-events-none z-20"
             >
-              📜
+              <div className={`w-6 h-8 rounded-sm shadow-lg ${
+                isDark
+                  ? 'bg-gradient-to-br from-romantic-400/50 to-accent-purple/40'
+                  : 'bg-gradient-to-br from-romantic-400/60 to-accent-purple/50'
+              }`} />
             </motion.div>
           ))}
         </AnimatePresence>
 
-        {/* Jar visual */}
+        {/* ===== THE JAR ===== */}
         <motion.div
-          animate={jarShake ? { rotate: [-3, 3, -3, 3, 0], y: [0, -5, 0] } : {}}
+          animate={jarShake ? { rotate: [0, -4, 4, -3, 3, -1, 0], y: [0, -4, 0] } : {}}
           transition={{ duration: 0.6 }}
-          className="relative inline-block mb-8"
+          className="relative mx-auto mb-10"
         >
-          {/* Jar */}
-          <div
-            className={`relative w-48 h-56 mx-auto rounded-b-[40%] overflow-hidden border-2 ${
-              isDark
-                ? 'border-romantic-400/20 bg-romantic-950/40'
-                : 'border-romantic-300/30 bg-white/30'
-            }`}
-            style={{
-              backdropFilter: 'blur(8px)',
-              borderTop: 'none',
-            }}
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            transition={{ type: 'spring', stiffness: 300 }}
+            className="relative inline-block"
           >
-            {/* Jar lid */}
-            <div
-              className={`absolute -top-3 left-1/2 -translate-x-1/2 w-36 h-6 rounded-t-lg border-2 ${
-                isDark
-                  ? 'border-romantic-400/30 bg-romantic-900/80'
-                  : 'border-romantic-300/40 bg-romantic-100/80'
+            {/* Glow behind jar */}
+            <motion.div
+              animate={{ opacity: [0.15, 0.3, 0.15], scale: [1, 1.05, 1] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              className={`absolute -inset-6 rounded-full blur-2xl ${
+                isDark ? 'bg-romantic-400/10' : 'bg-romantic-400/15'
               }`}
             />
 
-            {/* Papers inside jar */}
-            <div className="absolute inset-0 flex flex-wrap items-end justify-center gap-1 p-4 pt-6">
-              {wishes.map((_, i) => (
-                <motion.div
-                  key={i}
-                  animate={{
-                    y: [0, -3, 0],
-                    rotate: [0, Math.random() * 6 - 3, 0],
-                  }}
-                  transition={{
-                    duration: 2 + Math.random() * 2,
-                    repeat: Infinity,
-                    delay: Math.random() * 2,
-                  }}
-                  className={`w-6 h-4 rounded-sm ${
-                    usedWishes.includes(i)
-                      ? 'opacity-20'
-                      : 'opacity-70'
-                  }`}
-                  style={{
-                    background: `hsl(${340 + i * 8}, 70%, ${60 + (i % 3) * 10}%)`,
-                    transform: `rotate(${Math.random() * 30 - 15}deg)`,
-                  }}
-                />
-              ))}
+            {/* Jar body */}
+            <div
+              className={`relative w-44 h-52 sm:w-52 sm:h-60 mx-auto overflow-hidden ${
+                isDark
+                  ? 'bg-gradient-to-b from-white/[0.07] to-white/[0.02] border border-white/10'
+                  : 'bg-gradient-to-b from-white/60 to-white/30 border border-romantic-200/40'
+              }`}
+              style={{
+                borderRadius: '12px 12px 40% 40%',
+              }}
+            >
+              {/* Jar lid */}
+              <div
+                className={`absolute -top-4 left-1/2 -translate-x-1/2 w-[75%] h-7 z-10 ${
+                  isDark
+                    ? 'bg-gradient-to-b from-romantic-300/25 to-romantic-400/15 border border-romantic-400/20'
+                    : 'bg-gradient-to-b from-romantic-300/40 to-romantic-200/30 border border-romantic-300/30'
+                }`}
+                style={{ borderRadius: '8px 8px 2px 2px' }}
+              />
+
+              {/* Lid knob */}
+              <div
+                className={`absolute -top-6 left-1/2 -translate-x-1/2 w-6 h-3 rounded-t-full z-10 ${
+                  isDark ? 'bg-romantic-300/20' : 'bg-romantic-300/35'
+                }`}
+              />
+
+              {/* Papers inside jar */}
+              <div className="absolute inset-0 flex flex-wrap items-end justify-center p-3 pt-8 gap-[3px] overflow-hidden">
+                {wishes.map((_, i) => {
+                  const isUsed = usedWishes.includes(i);
+                  const colorIdx = i % paperColors.length;
+                  const rotation = ((i * 37 + 13) % 50) - 25;
+                  return (
+                    <motion.div
+                      key={i}
+                      animate={
+                        isUsed
+                          ? { opacity: 0.1, scale: 0.6, y: 4 }
+                          : {
+                              opacity: 1,
+                              scale: 1,
+                              y: [0, -2, 0],
+                              rotate: [rotation, rotation + 2, rotation],
+                            }
+                      }
+                      transition={
+                        isUsed
+                          ? { duration: 0.4 }
+                          : {
+                              y: { duration: 2.5 + (i % 3) * 0.5, repeat: Infinity, ease: 'easeInOut', delay: i * 0.2 },
+                              rotate: { duration: 3 + (i % 3), repeat: Infinity, ease: 'easeInOut', delay: i * 0.15 },
+                            }
+                      }
+                      className="w-5 h-7 rounded-sm shadow-sm"
+                      style={{
+                        background: paperColors[colorIdx],
+                        transform: `rotate(${rotation}deg)`,
+                      }}
+                    />
+                  );
+                })}
+              </div>
+
+              {/* Glass reflection */}
+              <div className={`absolute top-4 left-2 w-4 h-[60%] rounded-full blur-sm ${
+                isDark ? 'bg-white/[0.04]' : 'bg-white/30'
+              }`} />
+
+              {/* Inner glow at bottom */}
+              <motion.div
+                animate={{ opacity: [0.05, 0.15, 0.05] }}
+                transition={{ duration: 3, repeat: Infinity }}
+                className={`absolute inset-0 ${
+                  isDark
+                    ? 'bg-gradient-to-t from-romantic-400/10 to-transparent'
+                    : 'bg-gradient-to-t from-romantic-400/15 to-transparent'
+                }`}
+              />
             </div>
 
-            {/* Glass reflection */}
-            <div className="absolute top-0 left-2 w-6 h-full bg-white/5 rounded-full blur-sm" />
-          </div>
-
-          {/* Label */}
-          <div className={`mt-3 text-center text-xs font-body ${
-            isDark ? 'text-romantic-300/40' : 'text-romantic-500/40'
-          }`}>
-            {wishes.length - usedWishes.length} voeux restants 💕
-          </div>
+            {/* Remaining count */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className={`mt-4 text-center text-xs font-body tracking-wider ${
+                isDark ? 'text-romantic-300/40' : 'text-romantic-600/40'
+              }`}
+            >
+              {remaining} voeux restants
+            </motion.div>
+          </motion.div>
         </motion.div>
 
         {/* Pick button */}
         <motion.button
-          whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.92 }}
+          whileHover={{ scale: 1.06 }}
+          whileTap={{ scale: 0.94 }}
           onClick={pickWish}
           disabled={isAnimating}
-          className="relative group mb-8"
+          className="relative group mb-10"
         >
-          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-romantic-400 to-accent-purple opacity-30 blur-lg group-hover:opacity-50 transition-opacity" />
-          <div className="relative btn-romantic text-lg px-10 py-4 rounded-full font-body inline-flex items-center gap-3">
+          <motion.div
+            animate={{ opacity: [0.2, 0.4, 0.2] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute inset-0 rounded-full bg-gradient-to-r from-romantic-400 to-accent-purple blur-xl"
+          />
+          <div className={`relative text-base sm:text-lg px-8 sm:px-10 py-3.5 sm:py-4 rounded-full font-body inline-flex items-center gap-3 transition-all ${
+            isDark
+              ? 'bg-gradient-to-r from-romantic-400 to-accent-purple text-white shadow-lg shadow-romantic-400/20'
+              : 'bg-gradient-to-r from-romantic-400 to-accent-purple text-white shadow-lg shadow-romantic-400/30'
+          }`}>
             <FaHeart className="text-sm" />
-            <span>Piocher un voeu</span>
+            <span>{currentWish ? 'Pioche un autre voeu' : 'Pioche un voeu'}</span>
           </div>
         </motion.button>
 
-        {/* Wish card display */}
+        {/* Current wish display */}
         <AnimatePresence mode="wait">
           {currentWish && (
             <motion.div
               key={currentWish.index}
-              initial={{ opacity: 0, y: 30, scale: 0.9, rotateX: 20 }}
-              animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
-              exit={{ opacity: 0, y: -20, scale: 0.9 }}
-              transition={{ type: 'spring', damping: 15, stiffness: 100 }}
-              className={`rounded-2xl p-8 relative overflow-hidden ${
-                isDark ? 'glass' : 'glass-light'
+              initial={{ opacity: 0, y: 30, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ duration: 0.5, type: 'spring', stiffness: 120 }}
+              className={`rounded-2xl p-6 sm:p-8 relative overflow-hidden ${
+                isDark
+                  ? 'bg-white/[0.04] border border-white/10 backdrop-blur-md'
+                  : 'bg-white/70 border border-romantic-200/30 backdrop-blur-md shadow-lg shadow-romantic-100/50'
               }`}
             >
-              {/* Gradient accent */}
-              <div
-                className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${currentWish.color}`}
-              />
+              {/* Top gradient accent */}
+              <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${currentWish.color}`} />
 
-              {/* Wish content */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
-              >
-                <div className="text-4xl mb-4">📜</div>
-                <p
-                  className={`font-elegant text-xl leading-relaxed ${
-                    isDark ? 'text-romantic-100' : 'text-romantic-800'
-                  }`}
-                >
-                  {currentWish.text}
-                </p>
-              </motion.div>
-
-              {/* Paper fold decoration */}
-              <div className="absolute bottom-0 right-0 w-8 h-8 overflow-hidden">
-                <div
-                  className={`w-12 h-12 rotate-45 translate-x-2 translate-y-2 ${
-                    isDark ? 'bg-romantic-900/50' : 'bg-romantic-100/50'
-                  }`}
-                />
+              {/* Decorative quote marks */}
+              <div className={`absolute top-3 left-4 text-4xl font-serif select-none ${
+                isDark ? 'text-romantic-400/10' : 'text-romantic-400/15'
+              }`}>
+                &ldquo;
               </div>
+
+              <p
+                className={`font-elegant text-lg sm:text-xl leading-relaxed relative z-10 ${
+                  isDark ? 'text-romantic-100' : 'text-romantic-800'
+                }`}
+                dir={currentWish.text.match(/[\u0600-\u06FF]/) ? 'rtl' : 'ltr'}
+              >
+                {currentWish.text}
+              </p>
+
+              {/* Bottom fold */}
+              <div className={`absolute bottom-0 right-0 w-8 h-8 ${
+                isDark ? 'bg-romantic-900/30' : 'bg-romantic-100/50'
+              }`}
+                style={{
+                  clipPath: 'polygon(100% 0, 100% 100%, 0 100%)',
+                }}
+              />
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Reset button */}
+        {/* Reset */}
         {usedWishes.length > 3 && (
           <motion.button
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             whileHover={{ scale: 1.05 }}
             onClick={resetJar}
-            className={`mt-6 text-xs font-body inline-flex items-center gap-2 px-4 py-2 rounded-full transition-colors ${
+            className={`mt-6 block mx-auto text-xs font-body inline-flex items-center gap-1.5 px-4 py-2 rounded-full transition-colors ${
               isDark
-                ? 'text-romantic-300/40 hover:text-romantic-300/70 hover:bg-romantic-400/10'
-                : 'text-romantic-500/40 hover:text-romantic-500/70 hover:bg-romantic-100'
+                ? 'text-romantic-300/40 hover:text-romantic-300/60 hover:bg-romantic-400/10'
+                : 'text-romantic-600/40 hover:text-romantic-600/60 hover:bg-romantic-100'
             }`}
           >
-            <FaRedoAlt className="text-xs" />
-            Remplir le bocal à nouveau
+            <FaRedoAlt className="text-[10px]" />
+            Remettre tous les voeux
           </motion.button>
         )}
       </div>
@@ -264,8 +346,8 @@ const WishJar = () => {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.8, duration: 0.8 }}
-        className={`text-center mt-10 font-elegant text-lg italic ${
-          isDark ? 'text-romantic-300/40' : 'text-romantic-600/40'
+        className={`text-center mt-12 font-elegant text-base sm:text-lg italic ${
+          isDark ? 'text-romantic-300/30' : 'text-romantic-600/30'
         }`}
       >
         Kol voeu men 9albi, inshallah yet7a99ou koulhom m3ak 🤲

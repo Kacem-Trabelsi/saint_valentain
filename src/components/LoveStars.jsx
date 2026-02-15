@@ -61,7 +61,7 @@ const LoveStars = () => {
   }, [discoveredStars]);
 
   return (
-    <div className="min-h-screen py-20 px-4 relative">
+    <div className="min-h-screen py-10 px-4 relative">
       {/* Section header */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -90,9 +90,11 @@ const LoveStars = () => {
         viewport={{ once: true }}
         transition={{ duration: 1.5 }}
         className={`relative max-w-5xl mx-auto rounded-3xl overflow-hidden ${
-          isDark ? 'bg-romantic-950/80' : 'bg-gradient-to-b from-indigo-950 to-romantic-950'
+          isDark
+            ? 'bg-romantic-950/80 border border-white/5'
+            : 'bg-gradient-to-b from-indigo-950 to-romantic-950 border border-romantic-300/20 shadow-xl shadow-romantic-200/20'
         }`}
-        style={{ height: '500px', border: '1px solid rgba(255,107,157,0.1)' }}
+        style={{ height: '500px' }}
       >
         {/* Background glow */}
         <div className="absolute inset-0 pointer-events-none">

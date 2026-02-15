@@ -4,6 +4,7 @@ import { useTheme } from '../context/ThemeContext';
 
 const sections = [
   { id: 'landing', label: 'Welcome', emoji: '💝' },
+  { id: 'ourstory', label: 'Our Story', emoji: '📖' },
   { id: 'counter', label: 'Our Time', emoji: '⏰' },
   { id: 'timeline', label: 'Memories', emoji: '📖' },
   { id: 'quotes', label: 'Mon Cœur', emoji: '💬' },
@@ -67,7 +68,13 @@ const Navbar = () => {
       transition={{ delay: 2, duration: 0.8 }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="fixed right-4 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-end gap-3"
+      className={`fixed right-3 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col items-end gap-[6px] py-3 px-2 rounded-full transition-colors duration-300 ${
+        isHovered
+          ? isDark
+            ? 'bg-black/30 backdrop-blur-md'
+            : 'bg-white/50 backdrop-blur-md'
+          : ''
+      }`}
     >
       {sections.map(({ id, label, emoji }) => {
         const isActive = activeSection === id;
@@ -77,23 +84,25 @@ const Navbar = () => {
             key={id}
             onClick={() => scrollToSection(id)}
             className="flex items-center gap-2 group"
-            whileHover={{ x: -4 }}
+            whileHover={{ x: -3 }}
+            transition={{ duration: 0.15 }}
           >
             {/* Label - shows on hover */}
             <motion.span
-              initial={{ opacity: 0, x: 10 }}
+              initial={{ opacity: 0, x: 8 }}
               animate={{
                 opacity: isHovered || isActive ? 1 : 0,
-                x: isHovered || isActive ? 0 : 10,
+                x: isHovered || isActive ? 0 : 8,
               }}
-              className={`text-xs font-body whitespace-nowrap px-2 py-1 rounded-md transition-colors ${
+              transition={{ duration: 0.2 }}
+              className={`text-[10px] font-body whitespace-nowrap px-1.5 py-0.5 rounded transition-colors ${
                 isDark
                   ? isActive
-                    ? 'text-romantic-300 bg-romantic-400/10'
+                    ? 'text-romantic-200 bg-romantic-400/15'
                     : 'text-romantic-400/50'
                   : isActive
-                  ? 'text-romantic-600 bg-romantic-100'
-                  : 'text-romantic-500/40'
+                  ? 'text-romantic-700 bg-romantic-200/60'
+                  : 'text-romantic-500/50'
               }`}
             >
               {emoji} {label}
@@ -101,12 +110,12 @@ const Navbar = () => {
 
             {/* Dot */}
             <motion.div
-              className={`rounded-full transition-all duration-300 ${
+              className={`rounded-full transition-all duration-300 flex-shrink-0 ${
                 isActive
-                  ? 'w-3 h-3 bg-gradient-to-br from-romantic-400 to-accent-purple shadow-lg shadow-romantic-400/30'
+                  ? 'w-2.5 h-2.5 bg-gradient-to-br from-romantic-400 to-accent-purple shadow-md shadow-romantic-400/30'
                   : isDark
-                  ? 'w-2 h-2 bg-romantic-400/20 group-hover:bg-romantic-400/40'
-                  : 'w-2 h-2 bg-romantic-400/30 group-hover:bg-romantic-400/50'
+                  ? 'w-[6px] h-[6px] bg-romantic-400/20 group-hover:bg-romantic-400/40'
+                  : 'w-[6px] h-[6px] bg-romantic-400/30 group-hover:bg-romantic-400/50'
               }`}
               layout
             />
